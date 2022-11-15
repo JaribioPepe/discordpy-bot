@@ -1,18 +1,23 @@
-# This example requires the 'message_content' privileged intents
-
-import os
-import discord
-from discord.ext import commands
-import feedparser
 import asyncio
+import os
 import platform
 import random
 import time
+from collections import Counter
+from replit import db
+import discord
+import praw
+import pytz
+from discord.ext import commands
+import feedparser
 
+from keep_alive import keep_alive
 
-intents = discord.Intents.default()
-intents.message_content = True
-bot = commands.Bot(command_prefix='!', intents=intents)
+intents = discord.Intents.all()
+intents.members = True
+intents.typing = True
+intents.presences = True
+intents.reactions = True
 
 client = commands.Bot(command_prefix="$", intents=intents)
 
@@ -174,5 +179,21 @@ async def on_message(message):
 
     await client.process_commands(message)
 
+dead_chat = [
+    "dead chat",
+    "ded chat",
+    "chat dead",
+    "dead server",
+    "boring server",
+]
+
+images = [
+    "https://media1.tenor.com/images/f7ad58f17084a81fde2da96ddaa94edd/tenor.gif?itemid=18146171",
+    "https://media1.tenor.com/images/e2726f8433b913452d9a2f6768c49913/tenor.gif?itemid=4781301",
+    "https://media1.tenor.com/images/55b71cfa4bb363418b3833eaf1ee477d/tenor.gif?itemid=4941248",
+    "https://media1.tenor.com/images/939041d7709c44d052e4ddd1ca2f66a0/tenor.gif?itemid=13295259",
+    "https://media1.tenor.com/images/1f1378bacd3e8cd1c51bf829f4c08f4d/tenor.gif?itemid=22075897",
+    "https://media1.tenor.com/images/1771637ecbf5a19e226b951f3c133f42/tenor.gif?itemid=9304816",
+]
 
 bot.run(os.environ["DISCORD_TOKEN"])
